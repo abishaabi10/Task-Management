@@ -1,0 +1,149 @@
+#include <stdio.h>
+
+struct task 
+{
+    char name[100];
+    int id;
+};
+
+int main() 
+{
+    int Total_task,id = 1, Increment= 0;
+    printf("How many tasks do you want to add \n");
+    scanf("%d", &Total_task);
+    
+    struct task Task1[Total_task];
+    //i stansd for Task index
+    int choice, i;
+    char Yes_no;
+//when tha condition is false until the while loop is run
+    while(1)
+    {
+        printf("Choice : 1 Create task\n");
+        printf("Choice : 2 View tasks\n");
+        printf("Choice : 3 Delete task\n");
+        printf("Choice : 4 Exit\n");
+        printf("Enter your choice\n");
+        scanf("%d", &choice);
+
+        switch(choice)
+        {
+            //when you add some task you can use case1
+            case 1:
+                while (Total_task>Increment)
+                {
+                    printf("Id : %d\n", id);
+                    Task1[Increment].id = id;
+                    //Id increment 
+                    id++;
+                    printf("Enter new task: ");
+                    scanf(" %[^\n]s", Task1[Increment].name);
+                    printf("Task created successfully\n");
+                    printf("Do you want to add more tasks? (y/n): ");
+                    scanf(" %c", &Yes_no);
+//If the condition is true, it runs the associated code
+                    if (Yes_no == 'n' || Yes_no == 'N')
+                    {
+                        printf("No more tasks will be added.\n");
+                        Increment++;
+                        break;
+                    }
+ //if the condition is false then execute if else statement                  
+                    else if (Yes_no != 'y' && Yes_no != 'Y')
+                    {
+                        printf("Invalid input\n");
+                        Increment++;
+                        break;
+                    }
+//when if else condition is false then execute else statement
+                    else
+                    {
+                        Increment++;
+                        if (Total_task== Increment)
+                        {
+                            printf("You have given all the values\n");
+                            break;
+                        }
+                        printf("Continue to add\n");
+                    }
+                }
+                break;
+    //view all tha tasks 
+            case 2:
+            
+              if(Increment==0)
+                    {
+                        printf("No task found\n");
+                    }
+                    //  //k stansd for Task index
+                   
+                   
+                for (int k = 0; k < Increment; k++)
+                {
+                  
+              
+                    printf("Id: %d\n", Task1[k].id);
+                    printf("Task: %s\n", Task1[k].name);
+               
+                }
+                 
+              
+                break;
+            
+                break;
+       //delete option 
+            case 3:
+                 int delete_id,found= 0, p=0;
+                     if(Increment<=0)
+                  {
+                      printf("No task so cannot be deleted\n");
+                      break;
+                  }
+                  //This for loop is used to view id and name
+                   for (int i = 0; i < Increment; i++)
+                {
+                 
+                    printf("Id: %d\n", Task1[i].id);
+                    printf("Task: %s\n", Task1[i].name);
+                }
+                printf("Enter the id to delete: ");
+                scanf("%d", &delete_id);
+              //i stansd for Task index
+                for (i = 0; i < Increment; i++)
+                {
+                  if (Task1[i].id == delete_id)
+                    {
+                        found = 1;
+                        //p value is get i value
+                        p = i;
+                        break;
+                    }
+                }
+                if (found=1)
+                {
+                    for (i = p; i < Increment- 1; i++)
+                    {
+                        Task1[i] = Task1[i + 1];
+                    }
+                    Increment--;
+                    printf("Task id %d deleted successfully.\n", delete_id);
+                }
+                else
+                {
+                    printf("Task id %d not found.\n", delete_id);
+                }
+                
+                break;
+//if you choose tha choice case4 when exit the program
+            case 4:
+                printf("Exit\n");
+                return 0;
+
+            default:
+                printf("Invalid choice.\n");
+                break;
+        }
+    }
+
+    return 0;
+}
